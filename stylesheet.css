@@ -1,0 +1,134 @@
+#header {
+	z-index: 1;
+	position: fixed;
+	width: 100%;
+	margin-top:  -30px;
+	height: 90px;
+	background-color: #F5F5F5;
+	margin-bottom: 80px;
+
+}
+.logo {
+	display: inline-block;
+	margin-top: 10px;
+	margin-left: 25px;
+	float: left;
+	position: relative;
+	display: inline-block;
+	
+}
+
+.search { margin-top: 20px; margin-left: 120px; display: inline-block;}
+div div img {
+	width: 100px; 
+	height: 30px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.user {
+	width: 15px;
+	position: absolute;
+	height: 15px;
+	display: inline-block;
+	margin-top: 0px;
+	margin-left: 1020px;
+}
+div div div img {
+	width: 30px;
+	height: 30px;
+	margin-top: 20px;
+}
+.menu {
+	width: 100%;
+	margin-top: 10px;
+	height: 40px;
+	background-color: white;
+	margin-bottom: 2px;
+}
+div div p1 {
+	font-size: 20px; 
+	float: left;
+	color: #D32F2F;
+	margin-left: -70px;
+	margin-top: 6px;
+}
+.scale {
+	
+	text-align: right;
+	margin-left: 200px;
+	margin-top: 8px;
+}
+.add {
+	position: fixed;
+	background-color: #EEEEEE;
+	width: 80px;
+	height:30px;
+	float: left;
+	margin-left: 300px;
+	margin-top: 8px;
+	text-align: center;
+	display: inline-block;
+
+}
+div div p3 {
+	
+}
+.scale {
+	margin-left: 1000px;
+
+}
+.left {
+	position: fixed;
+	margin-top: 50px;
+
+	width: 10%;
+	height: 1000px;
+	background-color: #FAFAFA;
+}
+.write {
+	position: fixed;
+	width: 110px;
+	height: 30px;
+	margin-top: 30px;
+	margin-left: -10px;
+	background-color: #D32F2F;
+	border-radius: 2px 2px 2px 2px;
+	text-align: center;
+
+}
+.mailbox{
+	position: fixed;
+	margin-top: 70px;
+}
+nav ul li1 {
+	color: white;
+	font-weight: bold;
+}
+nav ul li2 {
+	font-size: 14;
+	color: #D32F2F;
+}
+nav ul div li {
+	line-height: 120%;
+	font-size: 14px;
+	
+}
+
+.right {
+	position: relative;
+	float: left;
+	margin-top: 100px;
+	margin-left: 13%;
+	margin-bottom: 150px;
+	width: 85%;
+	height: 1000px;
+	
+
+}
+
+.list {	
+	font-size: 13px;
+	font-weight: -100;
+	
+}
