@@ -1,0 +1,58 @@
+
+.back {
+
+    border:1px solid  black;
+    height:800px;
+    width:1000px;
+
+    }
+div p { font-size: 30px;}
+#icon1 {
+
+    position: absolute;
+    left:100px;
+    width:110px;
+    font-size: 12px;
+    top:100px;
+    height:120px;
+    background-color: skyblue;
+    }
+#folder1 {
+
+    position: absolute;
+    left:300px;
+    width:110px;
+    font-size: 12px;
+    top:100px;
+    height:120px;
+    background-color: red;
+    }
+#folder2 {
+
+    position: absolute;
+    left:500px;
+    width:110px;
+    font-size: 12px;
+    top:100px;
+    height:120px;
+    background-color: green;
+    }
+
+#folderwindow {
+  position: absolute;
+  display : none;
+  width: 200px;
+  height: 200px;
+  left:400px;/*if no set left, top, then no work??*/ 
+  top:200;
+
+}
+#folderwindow2 {
+  position: absolute;
+  display : none;
+  width: 200px;
+  height: 200px;
+  left:600px;/*if no set left, top, then no work??*/ 
+  top:200;
+
+}
