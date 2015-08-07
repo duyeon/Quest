@@ -11,25 +11,35 @@
 
  <body>
  <div class = 'back'>
- <p>하늘색: 아이콘// 빨간색 초록색 : 폴더</p>
- 
- <img id = 'icon1' src="http://icons.iconarchive.com/icons/iconshock/free-folder/256/folder-images-icon.png">
- <img id = 'folder1' src="http://icons.iconarchive.com/icons/iconshock/free-folder/256/folder-images-icon.png">
- <img id = 'folder2' src="http://icons.iconarchive.com/icons/iconshock/free-folder/256/folder-images-icon.png">
- <img id = 'folderwindow' src="http://cfile8.uf.tistory.com/image/12520A48500F7DCD0429A4">
- <img id = 'folderwindow2' src="http://cfile8.uf.tistory.com/image/12520A48500F7DCD0429A4">
+	 <p>하늘색: 아이콘// 빨간색 초록색 : 폴더</p>
+	 
+	 <div id="icon1"></div>
+	 <div id="folder1"></div>
+	 <div id="folder2"></div>
+
+	 <!-- <img id = 'icon1' src="http://icons.iconarchive.com/icons/iconshock/free-folder/256/folder-images-icon.png">
+	 <img id = 'folder1' src="http://icons.iconarchive.com/icons/iconshock/free-folder/256/folder-images-icon.png">
+	 <img id = 'folder2' src="http://icons.iconarchive.com/icons/iconshock/free-folder/256/folder-images-icon.png">
+	 <img id = 'folderwindow' src="http://cfile8.uf.tistory.com/image/12520A48500F7DCD0429A4">
+	 <img id = 'folderwindow2' src="http://cfile8.uf.tistory.com/image/12520A48500F7DCD0429A4"> -->
  </div>
 
  
  </body>
 
  <script>
- 	var icon1 = new Icon('icon1');
- 	var folder1 = new Folder('folder1','folderwindow1');
- 	var folder2 = new Folder('folder2','folderwindow2');
- 	var popup1 = new Popup('folderwindow');
- 	var popup2 = new Popup('folderwindow2');
+ 	var icon1 = new Icon(document.getElementById('icon1'));
+ 	var folder1 = new Folder(document.getElementById('folder1'));
+ 	var folder2 = new Folder(document.getElementById('folder2'));
 
+ 	// document.getElementById('icon1');
+ 	// document.querySelector('#icon1');
+
+ 	// var icon1 = new Icon('icon1');
+ 	// var folder1 = new Folder('folder1','folderwindow1');
+ 	// var folder2 = new Folder('folder2','folderwindow2');
+ 	// var popup1 = new Popup('folderwindow');
+ 	// var popup2 = new Popup('folderwindow2');
  </script>
 
 
