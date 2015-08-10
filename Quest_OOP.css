@@ -8,15 +8,12 @@
     }
 div p { font-size: 30px;}
 #icon1 {
-
-    position: absolute;
     left:100px;
-    width:110px;
-    font-size: 12px;
     top:100px;
-    height:120px;
+
+    font-size: 12px;
     background-color: skyblue;
-    }
+}
 #folder1 {
 
     position: absolute;
@@ -55,4 +52,30 @@ div p { font-size: 30px;}
   left:600px;/*if no set left, top, then no work??*/ 
   top:200;
 
+}
+
+
+
+.icon {
+  width: 110px;
+  height: 120px;
+  background-image: url('http://icons.iconarchive.com/icons/iconshock/free-folder/256/folder-images-icon.png');
+  background-size: 110px 120px;
+
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.popup {
+  width: 200px;
+  height: 200px;
+  background-image: url('http://cfile8.uf.tistory.com/image/12520A48500F7DCD0429A4');
+  background-size: 200px 200px;
+
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  
+  display: none;
 }
