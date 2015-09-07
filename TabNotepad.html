@@ -1,0 +1,143 @@
+<html>
+<head lang="ko">
+    <meta charset='utf-8'>
+    <title>Quest: Tab notepad</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"</script>
+	<link type="text/css" rel="stylesheet" href="TabNotepad.css"/>
+    <script type="text/javascript" src="TabNotepad.js"></script>
+	
+</head>
+<body>
+<div style="background-image:url('http://cfile234.uf.daum.net/image/1134311E49BB9C8E49E112'); width:800px;height:400px">
+<h1 style="display:inline">&nbsp;메모장</h1>
+<image src="http://cfile22.uf.tistory.com/image/206317274A5B3230B536E4"style="height:50px;width:50px;"></image>
+		<button type='button' class="new"   value="new" >새파일</button>
+		<button type='button' class='save'  value='save'>저장</button>
+		<button type='button' class='load' value='load'>로드</button>
+<p></p>
+<div id='tablist'style='height:20px; width:790px; border:1px solid grey;border-width:1px;background-color:#9ee2ae '></div>
+<textarea id='text'name="note" class='text'accept-charset ="utf-8" cols="110" rows="10" style="position:absolute"></textarea>
+		
+</div>	
+		
+
+</body>
+    <script>
+$(".new").click(filemake);
+$(".save").click(filesave);
+$(".load").click(fileload);
+$(".tab").live('click', tabswitch);  
+
+
+	
+function filemake(){
+	var filename = prompt("새로운 파일명을 입력해주세요");
+	$.ajax({
+		type: "POST",
+		url: "/new",
+		data: filename,
+		cache: false,
+		dataType: "text"
+});
+		var newmemo = document.createElement('textarea');
+		newmemo.className='text';
+		newmemo.cols='112';
+		newmemo.rows='10';
+		newmemo.style.position="absolute";
+		document.querySelector('.text').value = "";
+		document.querySelector('.text').id = filename;
+		addtab(filename);
+		return false;
+}
+
+		
+function filesave(){
+	var _name = document.querySelector('.text').id;
+	var _content = $('.text').val();
+        $.ajax({
+            type: "POST", 
+            url: "/save", 
+            data: { fname:_name, fcontent:_content},
+            cache: false,
+            dataType: "text"
+        });
+	
+	return false;
+}
+				
+function fileload(){
+	var _lname = prompt("로드할 파일명을 입력해주세요");
+	var memo = document.createElement('textarea');
+		memo.className='text';
+		memo.cols='112';
+		memo.rows='10';
+		memo.style.position="absolute";
+		document.querySelector('.text').value = "";
+		document.querySelector('.text').id = _lname;
+        $.ajax({
+            type: "POST", 
+            url: "/load",
+			data: _lname,
+            cache: false,
+            success: function(data){
+				document.querySelector('.text').value = data;
+				
+			},
+		
+        });
+	addtab(_lname);
+	return false;
+}
+		
+function tabswitch(){
+
+	var id = this.id;
+	
+	var switchmemo = document.createElement('textarea');
+		switchmemo.className='text';
+		switchmemo.cols='112';
+		switchmemo.rows='10';
+		switchmemo.style.position="absolute";
+		document.querySelector('.text').value = "";
+		document.querySelector('.text').id = id;
+	var point = document.querySelector('.text');
+		$.ajax({
+			type: "POST",
+			url: '/switch',
+			data: id,
+			cache: false,
+			success: function(data){
+				document.querySelector('.text').value = data;
+				
+			},
+		});
+}		
+
+
+function addtab(_name) {
+	newtab = document.createElement("div");
+	newtab.className = "tab";
+	newtab.id = _name;
+	newtab.innerHTML = _name;
+	newtab.style.border = '1px solid grey';
+	newtab.style.display = 'inline-block';
+	newtab.style.backgroundColor='#cbf066';
+	newtab.style.height = '20px';
+	newtab.style.width = '80px';
+	tablist = document.querySelector('#tablist');
+	tablist.appendChild(newtab);
+	
+
+}
+
+
+    </script>
+</html>
+
+
+
+
+
+
+
+
