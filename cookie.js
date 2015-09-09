@@ -10,7 +10,7 @@ app.use(bodyParser());
 
 app.get('/iu', function(request, response) {
 	
-		response.send("<h1>봉지은!</h1>");
+		response.send("<h1>이지은!</h1>");
 	
 });
 app.get('/suzi', function(request, response) {
