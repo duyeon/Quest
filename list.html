@@ -1,0 +1,173 @@
+<html>
+<head lang="ko">
+    <meta charset='utf-8'>
+    <title>Library</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"</script>
+	<link type="text/css" rel="stylesheet" href="Library.css"/>
+    <script type="text/javascript" src="Library.js"></script>
+	
+</head>
+<body>
+	<h1>여기는 도서관</h1>
+	<button type="button" class='show' value='show'>전체 책보기</button>
+	<hr>
+		<select id='choice'>
+		  <option value="Book">책이름으로 </option>
+		  <option value="Author">책 저자로</option>
+		  <option value="Publisher">책 출판사로</option>
+		</select>
+	<button type="button" class='search' value='search'>책 찾기</button>
+	<button type="button" class='reset' value='reset'>목록 리셋</button>
+	<hr>
+	<table class='table'width='100%' border="1">
+	<tr class='header'>
+		<th>책 제목</th>
+		<th>책 저자</th>
+		<th>책 출판사</th>
+		<th>대출여부</th>
+		<th>행동</th>
+		<th>사용자</th>
+		<th>마지막대출일자</th>
+		<th>마지막반납일자</th>
+	
+	</tr>
+	</table>
+
+
+</body>
+	<script>
+		
+		$(".reset").click(cleartable);
+		$(".show").click(showbook);
+		$(".search").click(searchbook);
+		$(".changestate").live('click',borrowbook);
+		$(".rechange").live('click',returnbook);
+		function showbook(){
+			$.ajax({
+			type: "POST", 
+            url: "/show",  
+            cache: false,
+			success: function(data){
+			var parsedata = JSON.parse(data);
+			cleartable();
+			maketable(parsedata);
+				}
+        	});//ajax
+			return false;
+		};//책 전체 목록 보여주기
+		function searchbook(){
+			var select = document.querySelector('#choice').value;
+			if(select === 'Book')
+				var bookfind = prompt('찾고자 하는 책 이름을 입력하세요');
+			if(select === 'Author')
+				var bookfind = prompt('찾고자 하는 책 저자명을 입력하세요');
+			if(select === 'Publisher')
+				var bookfind = prompt('찾고자 하는 책 출판사명을 입력하세요');
+			
+			$.ajax({
+				type:'post',
+				url:'/search',
+				data:{type:select,key:bookfind},
+				dataType:'text',
+				cache:false,
+				success:function(data){
+					var parsedata = JSON.parse(data);
+					
+					cleartable();
+					maketable(parsedata);
+				}
+			});
+			return false;
+		};//책 검색기능
+		function borrowbook(){
+			var thistime = new Date();
+			var borrowuser = prompt("대출자 성함을 입력하세요");
+				$.ajax({
+				type:'post',
+				url:'/borrowbook',
+				data:{_word:this.id,_time:thistime.toUTCString(),_user:borrowuser},
+				dataType:'text',
+				cache:false,
+				success:function(data){
+					if(data=='fail')
+						alert("이미 대출된 도서입니다");
+					else{
+						var parsedata = JSON.parse(data);
+						cleartable()
+						maketable(parsedata);
+					};
+				}
+				});
+		}
+		function returnbook(){
+			var thistime = new Date();
+			
+			$.ajax({
+				type:'post',
+				url:'/returnbook',
+				data:{_word:this.id,_time:thistime.toUTCString()},
+				dataType:'text',
+				cache:false,
+				success:function(data){
+					if(data =='fail')
+						alert('이미 반납된 도서입니다');
+					else{
+						var parsedata = JSON.parse(data);
+						cleartable()
+						maketable(parsedata);
+					}
+				}
+				});
+		}
+		function cleartable(){
+			$('.table').find($('.appended')).remove();
+			};
+		function maketable(parsedata){
+			var innertable = document.querySelector('.table');
+		
+			if(innertable.rows.length<6){
+			for(var i=0;i<parsedata.length;i++){
+				var tr = document.createElement("tr");
+				var td1 = document.createElement("td");	
+				var td2 = document.createElement("td");
+				var td3 = document.createElement("td");
+				var td4 = document.createElement("td");
+				var td5 = document.createElement("button");
+				var td6 = document.createElement('button');
+				var td7 = document.createElement("td");
+				var td8 = document.createElement("td");
+				var td9 = document.createElement("td");
+			
+				tr.className ='appended';
+				td1.innerHTML = parsedata[i].Book;
+				td2.innerHTML = parsedata[i].Author;
+				td3.innerHTML = parsedata[i].Publisher;
+				td4.innerHTML = parsedata[i].대출가능여부;
+				td4.className = i+"td4";
+				td5.innerHTML = "대출하기";
+				td5.className = "changestate";
+				td5.id = parsedata[i].Book;
+				td6.innerHTML = "반납하기";
+				td6.className = "rechange";
+				td6.id = parsedata[i].Book;
+				td7.innerHTML = parsedata[i].user;
+				td8.innerHTML = parsedata[i].borrowdate;
+				td9.innerHTML = parsedata[i].returndate;
+				
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+				tr.appendChild(td3);
+				tr.appendChild(td4);
+				tr.appendChild(td5);
+				tr.appendChild(td6);
+				tr.appendChild(td7);
+				tr.appendChild(td8);
+				tr.appendChild(td9);
+				innertable.appendChild(tr);
+			};
+		};
+		};
+	</script>
+
+</html>
+
