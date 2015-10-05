@@ -5,22 +5,19 @@
 		</title>
 		<meta charset="utf-8">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js">	</script>
-		<link type="text/css" rel="stylesheet" href="svg.css"/>
+	
     <script type="text/javascript" src="svg.js"></script>
 	</head>
 	<body onkeydown='obj(event)'>
 		<h1>SVG-sketch</h1>
-		<hr>
+		<h3>사각형, 원, 삼각형을 만들어보세요.</h3>
 		<button type='button' class="makerec" onclick="makerectangle()">사각형만들기</button>
 		<button type='button' class="makecir" onclick="makecircle()">원만들기</button>
 		<button type='button' class="maketri" onclick="maketriangle()">삼각형만들기</button>
-		<div id = 'save'></div>
 		<hr>
 
 	</body>
 	<script>
-$(document).on('click','#myrectangle',selectTarget);
-$(document).on('click','#mycircle',selectTarget);
-$(document).on('click','#mytriangle',selectTarget);
+		$(document).on('click','svg',selectTarget);
 	</script>
 </html>
