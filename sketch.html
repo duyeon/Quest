@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO</title>
+    <meta charset="utf-8">
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="heyjs.js"></script>
+  </head>
+  <body onkeydown="obj(event)">
+    <ul id="messages"></ul>
+    <h1>SVG-sketch</h1>
+    <h3 id='test'>사각형, 원, 삼각형을 만들어보세요.</h3>
+    <button type='button' class="makerec">사각형만들기</button>
+    <input type='text' class='recwidth' value='가로길이' size='5'onfocus="clearText(this)">
+    <input type='text' class='recheight' value='세로길이' size='5'onfocus="clearText(this)">
+    <hr>
+    <button type='button' class="makecir">원만들기</button>
+		<input type='text' class='radius' value='반지름' size='5'onfocus="clearText(this)">
+		<hr>
+    <button type='button' class="maketri">삼각형만들기</button>
+    <input type='text' class='x1' value='x1'size='2' onfocus="clearText(this)">
+    <input type='text' class='y1' value='y1'size='2'onfocus="clearText(this)">
+    <input type='text' class='x2' value='x2'size='2'onfocus="clearText(this)">
+    <input type='text' class='y2' value='y2'size='2'onfocus="clearText(this)">
+    <input type='text' class='x3' value='x3'size='2'onfocus="clearText(this)">
+    <input type='text' class='y3' value='y3'size='2'onfocus="clearText(this)">
+    <hr>
+
+    <script>
+      var target = "";
+      var socket = io();
+
+      $('.makerec').click(function(){
+        var recfactor = { _recwidth:$('.recwidth').val(), _recheight:$('.recheight').val() };
+        socket.emit('make rec',recfactor);
+        });
+      $('.makecir').click(function(){
+        var cirfactor = { _radius: $('.radius').val()};
+        socket.emit('make cir',cirfactor);
+      })
+      $('.maketri').click(function(){
+        var trifactor = {_x1:$('.x1').val(), _y1:$('.y1').val(),_x2:$('.x2').val(), _y2:$('.y2').val(),_x3:$('.x3').val(), _y3:$('.y3').val()};
+        socket.emit('make tri', trifactor);
+      })
+      $(document).on('click','svg',function(){
+            $('.selected').attr('class','unselected');
+            this.setAttribute('class','selected');
+            var target = this.id;
+            socket.emit('select target',target);
+      });
+      socket.on('draw rec', function(data){
+          _makerec(data._recwidth, data._recheight);
+      });
+      socket.on('draw cir', function(data){
+        _makecir(data._radius);
+      });
+      socket.on('draw tri', function(data){
+        _maketri(data);
+      });
+      socket.on('selected',function(data){
+        $('.selected').attr('class','unselected');
+        var selected = document.getElementById(data);
+        selected.setAttribute('class','selected');
+      });
+      socket.on('deleted',function(){
+        $('.selected').remove();
+      });
+      socket.on('left',function(){
+        var sockobj = document.querySelector('.selected');
+        	sockobj.style.left = parseInt(sockobj.style.left)-15+'px';
+      });
+      socket.on('up',function(){
+        var sockobj = document.querySelector('.selected');
+        	sockobj.style.top = parseInt(sockobj.style.top)-15+'px';
+      });
+      socket.on('right',function(){
+        var sockobj = document.querySelector('.selected');
+          sockobj.style.left = parseInt(sockobj.style.left)+15+'px';
+      });
+      socket.on('down',function(){
+        var sockobj = document.querySelector('.selected');
+          sockobj.style.top = parseInt(sockobj.style.top)+15+'px';
+      });
+
+      function obj(evt){
+
+      	var obj = document.querySelector('.selected');
+      	var kcode = evt.keyCode;
+
+      	if(kcode == 46){
+      		obj.remove();
+          socket.emit('delete');
+      	}
+      	else if(kcode == 37){
+      		obj.style.left = parseInt(obj.style.left)-15+'px';
+          socket.emit('go left');
+      	}
+      	else if(kcode == 38){
+      		obj.style.top = parseInt(obj.style.top)-15+'px';
+          socket.emit('go up');
+        }
+      	else if(kcode == 39){
+      		obj.style.left = parseInt(obj.style.left)+15+'px';
+          socket.emit('go right');
+      	}
+      	else if(kcode == 40){
+      		obj.style.top = parseInt(obj.style.top)+15+'px';
+          socket.emit('go down');
+      	}
+      };
+    </script>
+  </body>
+
+</html>
